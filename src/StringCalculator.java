@@ -13,7 +13,7 @@ public class StringCalculator {
         else{
             int res = 0;
             if(string.startsWith("//")){
-                Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(string);
+                Matcher matcher = Pattern.compile("//(.*)\n(.*)").matcher(string);
                 if(matcher.matches()){
                     String delimiter = matcher.group(1);
                     String toSplit = matcher.group(2);

@@ -28,8 +28,9 @@ public class TestCalculate {
     }
     @Test
     public void diffDelimiters(){
-        assertEquals(stringCalculator.add("//;\n1;2;-3;-4") , 3);
-        assertEquals(stringCalculator.add("//_\n2_3") , 5);
+        assertEquals(stringCalculator.add("//;\n1;2;3") , 6);
+        assertEquals(stringCalculator.add("//_\n2_3_5_4") , 14);
+        assertEquals(stringCalculator.add("//&\n3&4&5&6&7&8") , 33);
     }
     @Test
     public void GetCalledCount(){
@@ -38,5 +39,9 @@ public class TestCalculate {
     @Test
     public void numGreaterThan1000(){
         assertEquals(stringCalculator.add("2,1001") , 2);
+    }
+    @Test
+    public void multipleDelimiters(){
+        assertEquals(stringCalculator.add("//;;;\n1;;;2;;;3") , 6);
     }
 }
