@@ -24,13 +24,7 @@ public class StringCalculator {
             }
             else{
                 String[] numbers = string.split(",|\n");
-                if (numbers.length == 2) {
-                    int num1 = Integer.parseInt(numbers[0]);
-                    int num2 = Integer.parseInt(numbers[1]);
-                    res = num1 + num2;
-                } else {
-                    res = addMultiple(numbers);
-                }
+                res = addMultiple(numbers);
             }
             return res;
         }
@@ -42,6 +36,9 @@ public class StringCalculator {
             try{
                 if(num < 0){
                     throw new Exception();
+                }
+                if(num > 1000){
+                    continue;
                 }
                 res += num;
             }

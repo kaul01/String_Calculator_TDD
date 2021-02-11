@@ -35,5 +35,8 @@ public class TestCalculate {
     public void GetCalledCount(){
         assertEquals(stringCalculator.GetCalledCount("1,2,3") , 2);
     }
-
+    @Test
+    public void numGreaterThan1000(){
+        assertEquals(stringCalculator.add("2,1001") , 2);
+    }
 }
