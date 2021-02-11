@@ -15,4 +15,12 @@ public class Calculator {
             return (num1 + num2);
         }
     }
+    public int addMultiple(String string){
+        String[] numbers = string.split(",");
+        int res = 0;
+        for(int i=0 ; i< numbers.length ; i++){
+            res += Integer.parseInt(numbers[i]);
+        }
+        return res;
+    }
 }

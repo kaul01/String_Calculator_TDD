@@ -20,7 +20,7 @@ public class TestCalculate {
     }
     @Test
     public void unknownValues(){
-        assertEquals(calculator.add("1,2,3") , 6);
+        assertEquals(calculator.addMultiple("1,2,3") , 6);
     }
 
 }
