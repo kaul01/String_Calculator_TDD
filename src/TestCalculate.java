@@ -18,5 +18,9 @@ public class TestCalculate {
     public void twoValues(){
         assertEquals(calculator.add("1,2") , 3);
     }
+    @Test
+    public void unknownValues(){
+        assertEquals(calculator.add("1,2,3") , 6);
+    }
 
 }
