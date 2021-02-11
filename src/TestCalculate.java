@@ -26,5 +26,10 @@ public class TestCalculate {
     public void newLine(){
         assertEquals(calculator.add("1\n2,3") , 6);
     }
+    @Test
+    public void diffDelimiters(){
+        assertEquals(calculator.add("//;\n1;2") , 3);
+        assertEquals(calculator.add("//_\n2_3") , 5);
+    }
 
 }
