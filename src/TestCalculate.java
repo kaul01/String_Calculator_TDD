@@ -14,5 +14,9 @@ public class TestCalculate {
     public void singleValue(){
         assertEquals(calculator.calculate("1") ,  1);
     }
+    @Test
+    public void twoValues(){
+        assertEquals(calculator.calculate("1,2") , 3);
+    }
 
 }
