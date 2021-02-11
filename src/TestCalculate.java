@@ -33,6 +33,11 @@ public class TestCalculate {
         assertEquals(stringCalculator.add("//&\n3&4&5&6&7&8") , 33);
     }
     @Test
+    public void negatives(){
+        assertEquals(stringCalculator.add("-1") , 0);
+        assertEquals(stringCalculator.add("2,-4,-3") , 2);
+    }
+    @Test
     public void GetCalledCount(){
         assertEquals(stringCalculator.GetCalledCount("1,2,3") , 2);
     }
@@ -42,6 +47,10 @@ public class TestCalculate {
     }
     @Test
     public void multipleDelimiters(){
-        assertEquals(stringCalculator.add("//;;;\n1;;;2;;;3") , 6);
+        assertEquals(stringCalculator.add("//[;;;]\n1;;;2;;;3") , 6);
+    }
+    @Test
+    public void multipleDifferentDelimiters(){
+        assertEquals(stringCalculator.multipleDelimiters("//[;][%]\n1;2%3") ,6 );
     }
 }

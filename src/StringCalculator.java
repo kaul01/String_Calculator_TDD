@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,12 +10,22 @@ public class StringCalculator {
             return 0;
         }
         else if(string.length() == 1){
-            return Integer.parseInt(string);
+            int num =  Integer.parseInt(string);
+            try {
+                if (num < 0) {
+                    throw new Exception();
+                }
+                return num;
+            }
+            catch(Exception a){
+                System.out.println("negatives not allowed " + num);
+            }
+
         }
         else{
             int res = 0;
             if(string.startsWith("//")){
-                Matcher matcher = Pattern.compile("//(.*)\n(.*)").matcher(string);
+                Matcher matcher = Pattern.compile("//\\[(.*)\\]\n(.*)").matcher(string);
                 if(matcher.matches()){
                     String delimiter = matcher.group(1);
                     String toSplit = matcher.group(2);
@@ -28,13 +40,16 @@ public class StringCalculator {
             }
             return res;
         }
+        return 0;
     }
     public int addMultiple(String[] arr){
         int res = 0;
+        List<Integer> list = new ArrayList<>();
         for(int i=0 ; i< arr.length ; i++){
             int num = Integer.parseInt(arr[i]);
             try{
                 if(num < 0){
+                    list.add(num);
                     throw new Exception();
                 }
                 if(num > 1000){
@@ -43,8 +58,11 @@ public class StringCalculator {
                 res += num;
             }
             catch(Exception a){
-                System.out.println("negative not allowed " + num);
+                System.out.println("negatives not allowed ");
             }
+        }
+        if(!list.isEmpty()){
+            System.out.println("The negative numbers are" + list);
         }
         return res;
     }
@@ -69,6 +87,19 @@ public class StringCalculator {
             }
         }
         return count;
+    }
+
+    public int multipleDelimiters(String string){
+        int res=0;
+        Matcher matcher = Pattern.compile("//\\[(.*)\\]\\[(.*)\\]\n(.*)").matcher(string);
+        if(matcher.matches()){
+            String delimiter1 = matcher.group(1);
+            String delimiter2 = matcher.group(2);
+//            String toSplit = matcher.group(3);
+            System.out.println(delimiter1 + "  " + delimiter2);
+            res = 6;
+        }
+        return res;
     }
 
 }
