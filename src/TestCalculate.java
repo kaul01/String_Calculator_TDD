@@ -4,32 +4,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestCalculate {
 
-    Calculator calculator = new Calculator();
+    StringCalculator stringCalculator = new StringCalculator();
 
     @Test
-    public void emptyStringreturnsZero(){
-        assertEquals(calculator.add("") , 0);
+    public void emptyString(){
+        assertEquals(stringCalculator.add("") , 0);
     }
     @Test
     public void singleValue(){
-        assertEquals(calculator.add("1") ,  1);
+        assertEquals(stringCalculator.add("1") ,  1);
     }
     @Test
     public void twoValues(){
-        assertEquals(calculator.add("1,2") , 3);
+        assertEquals(stringCalculator.add("1,2") , 3);
     }
     @Test
     public void unknownValues(){
-        assertEquals(calculator.add("1,2,3") , 6);
+        assertEquals(stringCalculator.add("1,2,3") , 6);
     }
     @Test
     public void newLine(){
-        assertEquals(calculator.add("1\n2,3") , 6);
+        assertEquals(stringCalculator.add("1\n2,3") , 6);
     }
     @Test
     public void diffDelimiters(){
-        assertEquals(calculator.add("//;\n1;2") , 3);
-        assertEquals(calculator.add("//_\n2_3") , 5);
+        assertEquals(stringCalculator.add("//;\n1;2;-3;-4") , 3);
+        assertEquals(stringCalculator.add("//_\n2_3") , 5);
+    }
+    @Test
+    public void GetCalledCount(){
+        assertEquals(stringCalculator.GetCalledCount("1,2,3") , 2);
     }
 
 }

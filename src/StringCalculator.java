@@ -1,7 +1,7 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Calculator {
+public class StringCalculator {
 
     public int add(String string){
         if(string.isEmpty()){
@@ -38,9 +38,39 @@ public class Calculator {
     public int addMultiple(String[] arr){
         int res = 0;
         for(int i=0 ; i< arr.length ; i++){
-            res += Integer.parseInt(arr[i]);
+            int num = Integer.parseInt(arr[i]);
+            try{
+                if(num < 0){
+                    throw new Exception();
+                }
+                res += num;
+            }
+            catch(Exception a){
+                System.out.println("negative not allowed " + num);
+            }
         }
         return res;
+    }
+
+    public int GetCalledCount(String string){
+        int count=0;
+        if(string.isEmpty() || string.length() == 1){
+            return 0;
+        }
+        else{
+            if(string.startsWith("//")){
+                Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(string);
+                if(matcher.matches()){
+                    String delimiter = matcher.group(1);
+                    String toSplit = matcher.group(2);
+                    String[] numbers = toSplit.split(delimiter);
+                    count = numbers.length - 1;
+                }
+            }else{
+                count = string.length() - 1;
+            }
+        }
+        return count;
     }
 
 }
