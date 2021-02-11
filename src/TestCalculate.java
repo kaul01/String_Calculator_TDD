@@ -12,7 +12,7 @@ public class TestCalculate {
     }
     @Test
     public void singleValue(){
-        assertEquals("1" ,  1);
+        assertEquals(calculator.calculate("1") ,  1);
     }
 
 }
