@@ -67,7 +67,8 @@ public class StringCalculator {
                     count = numbers.length - 1;
                 }
             }else{
-                count = string.length() - 1;
+                String[] numbers = string.split(",");
+                count = numbers.length - 1;
             }
         }
         return count;
