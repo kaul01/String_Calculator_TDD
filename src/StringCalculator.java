@@ -6,11 +6,12 @@ import java.util.regex.Pattern;
 public class StringCalculator {
 
     public int add(String string){
+        int res = 0;
         if(string.isEmpty()){
-            return 0;
+            return res;
         }
         else if(string.length() == 1){
-            int num =  Integer.parseInt(string);
+            int num =  toInt(string);
             try {
                 if (num < 0) {
                     throw new Exception();
@@ -23,41 +24,43 @@ public class StringCalculator {
 
         }
         else{
-            int res = 0;
             if(string.startsWith("//")){
-                Matcher matcher = Pattern.compile("//\\[(.*)]\n(.*)").matcher(string);
-                if(matcher.matches()){
-                    String delimiter = matcher.group(1);
-                    String toSplit = matcher.group(2);
+                Matcher matcher1 = Pattern.compile("//(.)\n(.*)").matcher(string);
+                Matcher matcher2 = Pattern.compile("//\\[(.*)]\n(.*)").matcher(string);
+                if(matcher1.matches()){
+                    String delimiter = matcher1.group(1);
+                    String toSplit = matcher1.group(2);
+                    String[] numbers = toSplit.split(delimiter);
+                    res = addMultiple(numbers);
+                }
+                if(matcher2.matches()){
+                    String delimiter = matcher2.group(1);
+                    String toSplit = matcher2.group(2);
                     String[] delimiter_ar = delimiter.split("]\\[");
                     if(delimiter_ar.length == 1){
                         String[] numbers = toSplit.split(delimiter);
                         res = addMultiple(numbers);
-                    }else{
-                        int start = 0;
-                        for(int i = 0 ; i<delimiter_ar.length ; i++){
-                            String temp = delimiter_ar[i];
-                            int len = temp.length();
-                            int idx = toSplit.indexOf(temp);
-                            res += toInt(toSplit.substring(start , idx));
-                            start = idx + len;
-                            if(i == delimiter_ar.length -1){
-                                res += toInt(toSplit.substring(start));
+                    }
+                    else{
+                        String cus_delimiter = "";
+                        for(int i=0 ; i<delimiter_ar.length ; i++){
+                            if(i == delimiter_ar.length - 1){
+                                cus_delimiter += delimiter_ar[i];
+                            }else{
+                                cus_delimiter += delimiter_ar[i] + "|";
                             }
                         }
-                        return res;
-
+                        String[] numbers = toSplit.split(cus_delimiter);
+                        res = addMultiple(numbers);
                     }
-
                 }
             }
             else{
                 String[] numbers = string.split(",|\n");
                 res = addMultiple(numbers);
             }
-            return res;
         }
-        return 0;
+        return res;
     }
 
     public int toInt(String s){
@@ -68,7 +71,7 @@ public class StringCalculator {
         int res = 0;
         List<Integer> list = new ArrayList<>();
         for(int i=0 ; i< arr.length ; i++){
-            int num = Integer.parseInt(arr[i]);
+            int num = toInt(arr[i]);
             try{
                 if(num < 0){
                     list.add(num);
@@ -110,20 +113,5 @@ public class StringCalculator {
         }
         return count;
     }
-
-//    public int multipleDelimiters(String string){
-//        int res=0;
-//        Matcher matcher = Pattern.compile("//\\[(.*)]\\[(.*)]\n(.*)").matcher(string);
-//        if(matcher.matches()){
-//            String delimiter1 = matcher.group(1);
-//            String delimiter2 = matcher.group(2);
-//            String toSplit = matcher.group(3);
-//            String delimiter = "[" + delimiter1 + delimiter2 + "]";
-//            System.out.println(delimiter);
-//            String[] numbers = toSplit.split(delimiter);
-//            res = addMultiple(numbers);
-//        }
-//        return res;
-//    }
 
 }
