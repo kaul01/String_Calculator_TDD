@@ -53,5 +53,6 @@ public class TestCalculate {
     public void multipleDifferentDelimiters(){
         assertEquals(stringCalculator.add("//[;][%]\n1;2%3") ,6 );
         assertEquals(stringCalculator.add("//[;;][%%]\n6;;2%%7") ,15);
+        assertEquals(stringCalculator.add("//[&&][;]\n6;2&&7") ,15);
     }
 }
