@@ -25,13 +25,30 @@ public class StringCalculator {
         else{
             int res = 0;
             if(string.startsWith("//")){
-                Matcher matcher = Pattern.compile("//\\[(.*)\\]\n(.*)").matcher(string);
+                Matcher matcher = Pattern.compile("//\\[(.*)]\n(.*)").matcher(string);
                 if(matcher.matches()){
                     String delimiter = matcher.group(1);
                     String toSplit = matcher.group(2);
-                    String[] numbers = toSplit.split(delimiter);
+                    String[] delimiter_ar = delimiter.split("]\\[");
+                    if(delimiter_ar.length == 1){
+                        String[] numbers = toSplit.split(delimiter);
+                        res = addMultiple(numbers);
+                    }else{
+                        int start = 0;
+                        for(int i = 0 ; i<delimiter_ar.length ; i++){
+                            String temp = delimiter_ar[i];
+                            int len = temp.length();
+                            int idx = toSplit.indexOf(temp);
+                            res += toInt(toSplit.substring(start , idx));
+                            start = idx + len;
+                            if(i == delimiter_ar.length -1){
+                                res += toInt(toSplit.substring(start));
+                            }
+                        }
+                        return res;
 
-                    res = addMultiple(numbers);
+                    }
+
                 }
             }
             else{
@@ -42,6 +59,11 @@ public class StringCalculator {
         }
         return 0;
     }
+
+    public int toInt(String s){
+        return Integer.parseInt(s);
+    }
+
     public int addMultiple(String[] arr){
         int res = 0;
         List<Integer> list = new ArrayList<>();
@@ -89,17 +111,19 @@ public class StringCalculator {
         return count;
     }
 
-    public int multipleDelimiters(String string){
-        int res=0;
-        Matcher matcher = Pattern.compile("//\\[(.*)\\]\\[(.*)\\]\n(.*)").matcher(string);
-        if(matcher.matches()){
-            String delimiter1 = matcher.group(1);
-            String delimiter2 = matcher.group(2);
+//    public int multipleDelimiters(String string){
+//        int res=0;
+//        Matcher matcher = Pattern.compile("//\\[(.*)]\\[(.*)]\n(.*)").matcher(string);
+//        if(matcher.matches()){
+//            String delimiter1 = matcher.group(1);
+//            String delimiter2 = matcher.group(2);
 //            String toSplit = matcher.group(3);
-            System.out.println(delimiter1 + "  " + delimiter2);
-            res = 6;
-        }
-        return res;
-    }
+//            String delimiter = "[" + delimiter1 + delimiter2 + "]";
+//            System.out.println(delimiter);
+//            String[] numbers = toSplit.split(delimiter);
+//            res = addMultiple(numbers);
+//        }
+//        return res;
+//    }
 
 }
